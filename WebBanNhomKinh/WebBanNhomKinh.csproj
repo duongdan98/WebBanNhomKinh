@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminQuanLySanPhamController.cs" />
     <Compile Include="Controllers\ChuyenMucController.cs" />
     <Compile Include="Controllers\CongTrinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\QuangCao.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuanLySanPham.cs" />
     <Compile Include="Models\QuanLyTaiKhoan.cs" />
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
@@ -865,6 +867,7 @@
     <Content Include="Views\CongTrinh\ChiTietCongTrinh.cshtml" />
     <Content Include="Views\ChuyenMuc\Index.cshtml" />
     <Content Include="Views\ChuyenMuc\ChuyenMucDacBiet.cshtml" />
+    <Content Include="Views\AdminQuanLySanPham\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
