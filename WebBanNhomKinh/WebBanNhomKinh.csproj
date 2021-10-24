@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -126,16 +129,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminQuanLyChuyenMucController.cs" />
+    <Compile Include="Controllers\AdminQuanLyCongTrinhController.cs" />
+    <Compile Include="Controllers\AdminQuanLyDonHangController.cs" />
+    <Compile Include="Controllers\AdminQuanLyHangController.cs" />
+    <Compile Include="Controllers\AdminQuanLyNhapHangController.cs" />
+    <Compile Include="Controllers\AdminQuanLyNhaPhanPhoiController.cs" />
     <Compile Include="Controllers\AdminQuanLySanPhamController.cs" />
+    <Compile Include="Controllers\AdminQuanlyTaiKhoanController.cs" />
+    <Compile Include="Controllers\AdminQuanLyTinTucController.cs" />
+    <Compile Include="Controllers\CaiDatController.cs" />
     <Compile Include="Controllers\ChuyenMucController.cs" />
     <Compile Include="Controllers\CongTrinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -183,6 +190,7 @@
     <Compile Include="Models\LoaiTaiKhoan.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\MyModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,8 +212,16 @@
     <Compile Include="Models\QuangCao.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuangCaoViewModel.cs" />
+    <Compile Include="Models\QuanLyChuyenMuc.cs" />
+    <Compile Include="Models\QuanLyCongTrinh.cs" />
+    <Compile Include="Models\QuanLyDonHang.cs" />
+    <Compile Include="Models\QuanLyHangSX.cs" />
+    <Compile Include="Models\QuanLyHoaDonNhap.cs" />
+    <Compile Include="Models\QuanLyNhaPhanPhoi.cs" />
     <Compile Include="Models\QuanLySanPham.cs" />
     <Compile Include="Models\QuanLyTaiKhoan.cs" />
+    <Compile Include="Models\QuanLyTinTuc.cs" />
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
@@ -213,6 +229,7 @@
     <Compile Include="Models\Slide.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SlideViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
@@ -868,6 +885,21 @@
     <Content Include="Views\ChuyenMuc\Index.cshtml" />
     <Content Include="Views\ChuyenMuc\ChuyenMucDacBiet.cshtml" />
     <Content Include="Views\AdminQuanLySanPham\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyHang\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyTinTuc\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyChuyenMuc\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyCongTrinh\Index.cshtml" />
+    <Content Include="Views\AdminQuanlyTaiKhoan\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyDonHang\ChiTietDonHang.cshtml" />
+    <Content Include="Views\AdminQuanLyDonHang\DonHangChuaDuyet.cshtml" />
+    <Content Include="Views\AdminQuanLyDonHang\DonHangDaDuyet.cshtml" />
+    <Content Include="Views\CaiDat\HeThong.cshtml" />
+    <Content Include="Views\CaiDat\QuangCao.cshtml" />
+    <Content Include="Views\CaiDat\Slide.cshtml" />
+    <Content Include="Views\AdminQuanLyNhapHang\ChiTietHoaDonNhap.cshtml" />
+    <Content Include="Views\AdminQuanLyNhapHang\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyNhaPhanPhoi\Index.cshtml" />
+    <Content Include="Views\AdminQuanLyNhaPhanPhoi\SanPhamPhanPhoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
