@@ -7,7 +7,8 @@
     ShopEntities shop = new ShopEntities();
     var chuyenMucChinh = shop.ChuyenMucs.Where(c => c.MaChuyenMucCha == null && c.DacBiet == false).ToList();
     var chuyenMucDacBiet = shop.ChuyenMucs.Where(c => c.MaChuyenMucCha == null && c.DacBiet == true).ToList();
-    
+    ShoppingCartModels model = new ShoppingCartModels();
+    model.Cart = (ShoppingCart)Session["Cart"];
     var caiDat = shop.CaiDats.SingleOrDefault(s => s.Id == 1);
 
 }
@@ -127,7 +128,7 @@
                                 <button type="submit" class="btn btn-danger"><span class="fa fa-search"></span></button>
                             </form>
                             <div class="mini-cart">
-                                @*@Html.Partial("GioHang", model)*@
+                                @Html.Partial("GioHang", model)
                             </div>
                         </div>
                     </div>

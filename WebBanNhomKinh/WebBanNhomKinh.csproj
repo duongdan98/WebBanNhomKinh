@@ -145,8 +145,11 @@
     <Compile Include="Controllers\CaiDatController.cs" />
     <Compile Include="Controllers\ChuyenMucController.cs" />
     <Compile Include="Controllers\CongTrinhController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\TinTucController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +229,8 @@
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SanPhamBanChay.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
+    <Compile Include="Models\ShoppingCartModels.cs" />
     <Compile Include="Models\Slide.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
@@ -856,6 +861,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.full.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\GioHang.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -900,6 +906,20 @@
     <Content Include="Views\AdminQuanLyNhapHang\Index.cshtml" />
     <Content Include="Views\AdminQuanLyNhaPhanPhoi\Index.cshtml" />
     <Content Include="Views\AdminQuanLyNhaPhanPhoi\SanPhamPhanPhoi.cshtml" />
+    <Content Include="Views\GioHang\DienThongTin.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\GioHang\ThanhToan.cshtml" />
+    <Content Include="Views\GioHang\ThemVaoGioHang.cshtml" />
+    <Content Include="Views\Home\ThemVaoGioHang.cshtml" />
+    <Content Include="Views\Shared\BinhLuan.cshtml" />
+    <Content Include="Views\Shared\SanPhamBanChay.cshtml" />
+    <Content Include="Views\Shared\SanPhamLienQuan.cshtml" />
+    <Content Include="Views\Shared\TinMoiDang.cshtml" />
+    <Content Include="Views\Shared\UuDaiLon.cshtml" />
+    <Content Include="Views\TaiKhoan\DangKi.cshtml" />
+    <Content Include="Views\TaiKhoan\DangNhap.cshtml" />
+    <Content Include="Views\TaiKhoan\QuenMatKhau.cshtml" />
+    <Content Include="Views\ThongKe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
