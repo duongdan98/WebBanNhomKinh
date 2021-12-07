@@ -96,6 +96,9 @@ namespace ShopBanDoTheThao.Controllers
             Session["TenTaiKhoan"] =null;
             return Redirect("/");
         }
-
+        public ActionResult TheoDoiDonHang()
+        {
+            return View();
+        }
     }
 }

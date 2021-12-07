@@ -19,6 +19,7 @@ namespace WebBanNhomKinh.Models
         {
             this.ChiTietTaiKhoans = new HashSet<ChiTietTaiKhoan>();
             this.HoaDonNhaps = new HashSet<HoaDonNhap>();
+            this.HoaDons = new HashSet<HoaDon>();
         }
     
         public int MaTaiKhoan { get; set; }
@@ -31,6 +32,8 @@ namespace WebBanNhomKinh.Models
         public virtual ICollection<ChiTietTaiKhoan> ChiTietTaiKhoans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDonNhap> HoaDonNhaps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
         public virtual LoaiTaiKhoan LoaiTaiKhoan1 { get; set; }
     }
 }

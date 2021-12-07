@@ -21,6 +21,7 @@ namespace WebBanNhomKinh.Models
         }
     
         public int MaHoaDon { get; set; }
+        public Nullable<int> MaTaiKhoan { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
         public Nullable<System.DateTime> NgayDuyet { get; set; }
@@ -35,5 +36,6 @@ namespace WebBanNhomKinh.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual TaiKhoan TaiKhoan { get; set; }
     }
 }

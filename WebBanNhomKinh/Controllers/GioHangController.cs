@@ -101,6 +101,7 @@ namespace ShopBanDoTheThao.Controllers
             hd.NgayTao = DateTime.Now;
             hd.TongGia = tong;
             hd.TrangThai = false;
+            hd.MaTaiKhoan = int.Parse(Session["MaTK"].ToString());
             shop.HoaDons.Add(hd);
             shop.SaveChanges();
 
@@ -167,7 +168,11 @@ namespace ShopBanDoTheThao.Controllers
 
         public ActionResult DienThongTin()
         {
-            return View();
+            if(Session["TenTaiKhoan"]==null)
+            {
+                return RedirectToAction("DangNhap", "TaiKhoan");
+            }
+            else return View();
         }
     }
 }

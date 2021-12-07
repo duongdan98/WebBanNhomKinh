@@ -42,7 +42,6 @@ namespace WebBanNhomKinh.Models
         public virtual DbSet<QuangCao> QuangCaos { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
         public virtual DbSet<TinTuc> TinTucs { get; set; }
     }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebNhomKinhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CaiDats">
           <Key>
             <PropertyRef Name="Id" />
@@ -110,7 +110,7 @@
           </Key>
           <Property Name="MaHoaDon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaNhaPhanPhoi" Type="int" />
-          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NgayTao" Type="date" />
           <Property Name="KieuThanhToan" Type="nvarchar(max)" />
           <Property Name="MaTaiKhoan" Type="int" />
         </EntityType>
@@ -119,6 +119,7 @@
             <PropertyRef Name="MaHoaDon" />
           </Key>
           <Property Name="MaHoaDon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaTaiKhoan" Type="int" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="NgayTao" Type="datetime" />
           <Property Name="NgayDuyet" Type="datetime" />
@@ -209,16 +210,6 @@
           <Property Name="MoTa4" Type="nvarchar" MaxLength="250" />
           <Property Name="LinkAnh" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TaiKhoans">
           <Key>
             <PropertyRef Name="MaTaiKhoan" />
@@ -250,6 +241,18 @@
             </Principal>
             <Dependent Role="TaiKhoans">
               <PropertyRef Name="LoaiTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Accounts">
+          <End Role="TaiKhoans" Type="Self.TaiKhoans" Multiplicity="0..1" />
+          <End Role="HoaDons" Type="Self.HoaDons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoans">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="HoaDons">
+              <PropertyRef Name="MaTaiKhoan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,7 +400,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WebNhomKinhModelStoreContainer">
+        <EntityContainer Name="ShopModelStoreContainer">
           <EntitySet Name="CaiDats" EntityType="Self.CaiDats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietHoaDonNhaps" EntityType="Self.ChiTietHoaDonNhaps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietHoaDons" EntityType="Self.ChiTietHoaDons" Schema="dbo" store:Type="Tables" />
@@ -416,12 +419,15 @@
           <EntitySet Name="SanPhams" EntityType="Self.SanPhams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPhams_NhaPhanPhois" EntityType="Self.SanPhams_NhaPhanPhois" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slide" EntityType="Self.Slide" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinTucs" EntityType="Self.TinTucs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_TypeAccounts" Association="Self.FK_Accounts_TypeAccounts">
             <End Role="LoaiTaiKhoans" EntitySet="LoaiTaiKhoans" />
             <End Role="TaiKhoans" EntitySet="TaiKhoans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Accounts" Association="Self.FK_Bill_Accounts">
+            <End Role="TaiKhoans" EntitySet="TaiKhoans" />
+            <End Role="HoaDons" EntitySet="HoaDons" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietHoaDonNhaps_HoaDonNhaps" Association="Self.FK_ChiTietHoaDonNhaps_HoaDonNhaps">
             <End Role="HoaDonNhaps" EntitySet="HoaDonNhaps" />
@@ -476,7 +482,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WebNhomKinhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CaiDat">
           <Key>
             <PropertyRef Name="Id" />
@@ -591,7 +597,7 @@
           </Key>
           <Property Name="MaHoaDon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaNhaPhanPhoi" Type="Int32" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NgayTao" Type="DateTime" Precision="0" />
           <Property Name="KieuThanhToan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaTaiKhoan" Type="Int32" />
           <NavigationProperty Name="ChiTietHoaDonNhaps" Relationship="Self.FK_ChiTietHoaDonNhaps_HoaDonNhaps" FromRole="HoaDonNhaps" ToRole="ChiTietHoaDonNhaps" />
@@ -603,6 +609,7 @@
             <PropertyRef Name="MaHoaDon" />
           </Key>
           <Property Name="MaHoaDon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaTaiKhoan" Type="Int32" />
           <Property Name="TrangThai" Type="Boolean" />
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
           <Property Name="NgayDuyet" Type="DateTime" Precision="3" />
@@ -615,6 +622,7 @@
           <Property Name="DiaChiGiaoHang" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="ThoiGianGiaoHang" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.FK_DetailBill_Bills" FromRole="HoaDons" ToRole="ChiTietHoaDons" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_Bill_Accounts" FromRole="HoaDons" ToRole="TaiKhoans" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -694,16 +702,6 @@
           <Property Name="MoTa4" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="LinkAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TaiKhoan">
           <Key>
             <PropertyRef Name="MaTaiKhoan" />
@@ -715,6 +713,7 @@
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietTaiKhoans" Relationship="Self.FK_InformationAccounts_Accounts" FromRole="TaiKhoans" ToRole="ChiTietTaiKhoans" />
           <NavigationProperty Name="HoaDonNhaps" Relationship="Self.FK_HoaDonNhaps_TaiKhoans" FromRole="TaiKhoans" ToRole="HoaDonNhaps" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK_Bill_Accounts" FromRole="TaiKhoans" ToRole="HoaDons" />
           <NavigationProperty Name="LoaiTaiKhoan1" Relationship="Self.FK_Accounts_TypeAccounts" FromRole="TaiKhoans" ToRole="LoaiTaiKhoans" />
         </EntityType>
         <EntityType Name="TinTuc">
@@ -849,6 +848,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Bill_Accounts">
+          <End Role="TaiKhoans" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="HoaDons" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoans">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Principal>
+            <Dependent Role="HoaDons">
+              <PropertyRef Name="MaTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Accounts_TypeAccounts">
           <End Role="LoaiTaiKhoans" Type="Self.LoaiTaiKhoan" Multiplicity="0..1" />
           <End Role="TaiKhoans" Type="Self.TaiKhoan" Multiplicity="*" />
@@ -883,7 +894,6 @@
           <EntitySet Name="QuangCaos" EntityType="Self.QuangCao" />
           <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
           <EntitySet Name="Slides" EntityType="Self.Slide" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
           <EntitySet Name="TinTucs" EntityType="Self.TinTuc" />
           <AssociationSet Name="FK_ChiTietHoaDonNhaps_HoaDonNhaps" Association="Self.FK_ChiTietHoaDonNhaps_HoaDonNhaps">
@@ -926,6 +936,10 @@
             <End Role="TaiKhoans" EntitySet="TaiKhoans" />
             <End Role="HoaDonNhaps" EntitySet="HoaDonNhaps" />
           </AssociationSet>
+          <AssociationSet Name="FK_Bill_Accounts" Association="Self.FK_Bill_Accounts">
+            <End Role="TaiKhoans" EntitySet="TaiKhoans" />
+            <End Role="HoaDons" EntitySet="HoaDons" />
+          </AssociationSet>
           <AssociationSet Name="FK_Accounts_TypeAccounts" Association="Self.FK_Accounts_TypeAccounts">
             <End Role="LoaiTaiKhoans" EntitySet="LoaiTaiKhoans" />
             <End Role="TaiKhoans" EntitySet="TaiKhoans" />
@@ -940,9 +954,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebNhomKinhModelStoreContainer" CdmEntityContainer="ShopEntities">
+        <EntityContainerMapping StorageEntityContainer="ShopModelStoreContainer" CdmEntityContainer="ShopEntities">
           <EntitySetMapping Name="CaiDats">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.CaiDat">
+            <EntityTypeMapping TypeName="ShopModel.CaiDat">
               <MappingFragment StoreEntitySet="CaiDats">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
@@ -962,7 +976,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietHoaDonNhaps">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.ChiTietHoaDonNhap">
+            <EntityTypeMapping TypeName="ShopModel.ChiTietHoaDonNhap">
               <MappingFragment StoreEntitySet="ChiTietHoaDonNhaps">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
@@ -975,7 +989,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietHoaDons">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.ChiTietHoaDon">
+            <EntityTypeMapping TypeName="ShopModel.ChiTietHoaDon">
               <MappingFragment StoreEntitySet="ChiTietHoaDons">
                 <ScalarProperty Name="MaChiTietHoaDon" ColumnName="MaChiTietHoaDon" />
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
@@ -986,7 +1000,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietSanPhams">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.ChiTietSanPham">
+            <EntityTypeMapping TypeName="ShopModel.ChiTietSanPham">
               <MappingFragment StoreEntitySet="ChiTietSanPhams">
                 <ScalarProperty Name="MaChiTietSanPham" ColumnName="MaChiTietSanPham" />
                 <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
@@ -997,7 +1011,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietTaiKhoans">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.ChiTietTaiKhoan">
+            <EntityTypeMapping TypeName="ShopModel.ChiTietTaiKhoan">
               <MappingFragment StoreEntitySet="ChiTietTaiKhoans">
                 <ScalarProperty Name="MaChitietTaiKhoan" ColumnName="MaChitietTaiKhoan" />
                 <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
@@ -1009,7 +1023,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChuyenMucs">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.ChuyenMuc">
+            <EntityTypeMapping TypeName="ShopModel.ChuyenMuc">
               <MappingFragment StoreEntitySet="ChuyenMucs">
                 <ScalarProperty Name="MaChuyenMuc" ColumnName="MaChuyenMuc" />
                 <ScalarProperty Name="MaChuyenMucCha" ColumnName="MaChuyenMucCha" />
@@ -1020,7 +1034,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CongTrinhNoiBats">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.CongTrinhNoiBat">
+            <EntityTypeMapping TypeName="ShopModel.CongTrinhNoiBat">
               <MappingFragment StoreEntitySet="CongTrinhNoiBats">
                 <ScalarProperty Name="MaCT" ColumnName="MaCT" />
                 <ScalarProperty Name="TenCT" ColumnName="TenCT" />
@@ -1032,7 +1046,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DKBanTins">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.DKBanTin">
+            <EntityTypeMapping TypeName="ShopModel.DKBanTin">
               <MappingFragment StoreEntitySet="DKBanTins">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1040,7 +1054,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HangSanXuats">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.HangSanXuat">
+            <EntityTypeMapping TypeName="ShopModel.HangSanXuat">
               <MappingFragment StoreEntitySet="HangSanXuats">
                 <ScalarProperty Name="MaHang" ColumnName="MaHang" />
                 <ScalarProperty Name="TenHang" ColumnName="TenHang" />
@@ -1050,7 +1064,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDonNhaps">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.HoaDonNhap">
+            <EntityTypeMapping TypeName="ShopModel.HoaDonNhap">
               <MappingFragment StoreEntitySet="HoaDonNhaps">
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
                 <ScalarProperty Name="MaNhaPhanPhoi" ColumnName="MaNhaPhanPhoi" />
@@ -1061,9 +1075,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDons">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.HoaDon">
+            <EntityTypeMapping TypeName="ShopModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDons">
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
+                <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="NgayDuyet" ColumnName="NgayDuyet" />
@@ -1079,7 +1094,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.KhachHang">
+            <EntityTypeMapping TypeName="ShopModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHangs">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenKH" ColumnName="TenKH" />
@@ -1091,7 +1106,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiTaiKhoans">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.LoaiTaiKhoan">
+            <EntityTypeMapping TypeName="ShopModel.LoaiTaiKhoan">
               <MappingFragment StoreEntitySet="LoaiTaiKhoans">
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
@@ -1100,7 +1115,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhaPhanPhois">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.NhaPhanPhois">
+            <EntityTypeMapping TypeName="ShopModel.NhaPhanPhois">
               <MappingFragment StoreEntitySet="NhaPhanPhois">
                 <ScalarProperty Name="MaNhaPhanPhoi" ColumnName="MaNhaPhanPhoi" />
                 <ScalarProperty Name="TenNhaPhanPhoi" ColumnName="TenNhaPhanPhoi" />
@@ -1112,7 +1127,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QuangCaos">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.QuangCao">
+            <EntityTypeMapping TypeName="ShopModel.QuangCao">
               <MappingFragment StoreEntitySet="QuangCaos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
@@ -1122,7 +1137,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SanPhams">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.SanPham">
+            <EntityTypeMapping TypeName="ShopModel.SanPham">
               <MappingFragment StoreEntitySet="SanPhams">
                 <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
                 <ScalarProperty Name="MaChuyenMuc" ColumnName="MaChuyenMuc" />
@@ -1140,7 +1155,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Slides">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.Slide">
+            <EntityTypeMapping TypeName="ShopModel.Slide">
               <MappingFragment StoreEntitySet="Slide">
                 <ScalarProperty Name="MaAnh" ColumnName="MaAnh" />
                 <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
@@ -1154,19 +1169,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TaiKhoans">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.TaiKhoan">
+            <EntityTypeMapping TypeName="ShopModel.TaiKhoan">
               <MappingFragment StoreEntitySet="TaiKhoans">
                 <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
                 <ScalarProperty Name="LoaiTaiKhoan" ColumnName="LoaiTaiKhoan" />
@@ -1177,7 +1181,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TinTucs">
-            <EntityTypeMapping TypeName="WebNhomKinhModel.TinTuc">
+            <EntityTypeMapping TypeName="ShopModel.TinTuc">
               <MappingFragment StoreEntitySet="TinTucs">
                 <ScalarProperty Name="MaTinTuc" ColumnName="MaTinTuc" />
                 <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
@@ -1189,7 +1193,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="SanPhams_NhaPhanPhois" TypeName="WebNhomKinhModel.SanPhams_NhaPhanPhois" StoreEntitySet="SanPhams_NhaPhanPhois">
+          <AssociationSetMapping Name="SanPhams_NhaPhanPhois" TypeName="ShopModel.SanPhams_NhaPhanPhois" StoreEntitySet="SanPhams_NhaPhanPhois">
             <EndProperty Name="NhaPhanPhois">
               <ScalarProperty Name="MaNhaPhanPhoi" ColumnName="MaNhaPhanPhoi" />
             </EndProperty>

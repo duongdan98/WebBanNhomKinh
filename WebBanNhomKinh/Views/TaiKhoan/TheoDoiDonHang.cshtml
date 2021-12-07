@@ -1,0 +1,61 @@
+﻿@using WebBanNhomKinh.Models
+@{
+    ViewBag.Title = "TheoDoiDonHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ShopEntities shop = new ShopEntities();
+    int matk = int.Parse(Session["MaTK"].ToString());
+    var listHoaDon = shop.HoaDons.Where(l => l.MaTaiKhoan == matk).ToList();
+}
+
+@if (listHoaDon != null)
+{
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <tr>
+            <th>Tên Khách Hàng</th>
+            <th>Địa chỉ</th>
+            <th>Trạng thái</th>
+            <th>Tổng giá trị</th>
+
+        </tr>
+        @{
+            double total = 0;
+        }
+        @foreach (var item in listHoaDon)
+        {
+            total += double.Parse(item.TongGia.ToString());
+            <tr>
+                <td>@item.TenKH</td>
+                <td>@item.Diachi</td>
+                <td>
+                    @if (@item.TrangThai == true) {<b> Đã duyệt</b>}
+                    else
+                    {
+                        <b> Chưa duyệt</b>
+                    }
+
+                </td>
+                <td>@(item.TongGia.ToString()) VND</td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Tổng tiền</b></td>
+                <td><b>@total VND</b></td>
+            </tr>
+        }
+    </table>
+
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <tr>
+            <th>Tên Khách Hàng</th>
+            <th>Địa chỉ</th>
+            <th>Trạng thái</th>
+            <th>Tổng giá trị</th>
+        </tr>
+        <tr>
+            <td colspan="4"> Hiện chưa có đơn hàng nào!</td>
+        </tr>
+    </table>
+}
+
